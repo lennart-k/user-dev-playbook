@@ -1,0 +1,17 @@
+- name: Clone pyenv
+  ansible.builtin.git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: "{{ pyenv_root }}"
+    version: "{{ pyenv_version }}"
+
+- name: Configure pyenv root in fish
+  ansible.builtin.shell:
+    cmd: "set -Ux PYENV_ROOT $HOME/.pyenv"
+    executable: /usr/bin/fish
+
+- name: Add path to pyenv binary to fish
+  ansible.builtin.shell:
+    # The -m (move) parameter prevents this command from failing when the path already exists
+    # TODO: Detect if pyenv is already in path
+    cmd: "fish_add_path {{ pyenv_root }}/bin -m"
+    executable: /usr/bin/fish

@@ -1,0 +1,8 @@
+dependencies:
+  - role: links
+    vars:
+      links:
+        - src: "{{ dotfiles_repo_dest }}/neovim"
+          dest: "~/.config/nvim"
+          mode: 0644
+

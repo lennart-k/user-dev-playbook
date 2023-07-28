@@ -1,0 +1,16 @@
+- name: Fish
+  hosts: all
+  vars:
+    user: lennart
+  vars_files:
+    - vars/main.yml
+  roles:
+    - { role: dotfiles, tags: dotfiles }
+    - { role: fish, tags: fish }
+    - { role: pyenv, tags: pyenv }
+    - { role: packages, tags: packages }
+    - { role: links, tags: links }
+    - { role: neovim, tags: neovim }
+    - { role: matplotlib, tags: matplotlib }
+    - { role: tmux, tags: tmux }
+

@@ -1,0 +1,10 @@
+- name: Install packages
+  ansible.builtin.package:
+    name:
+      - lsd
+      - exa
+      - procs
+      - ripgrep
+      - git-delta
+    state: present
+  become: yes

@@ -1,0 +1,6 @@
+dependencies:
+  - role: links
+    vars:
+      links:
+        - src: "{{ dotfiles_repo_dest }}/tmux/.tmux.conf"
+          dest: "~/.tmux.conf"

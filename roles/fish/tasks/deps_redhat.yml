@@ -1,0 +1,11 @@
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - curl
+      - git
+      - fish
+      - fzf
+      - fd-find
+      - bat
+    state: present
+  become: true

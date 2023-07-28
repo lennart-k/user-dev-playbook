@@ -1,0 +1,7 @@
+- name: Clone git repository
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    version: "{{ dotfiles_repo_version }}"
+    dest: "{{ dotfiles_repo_dest }}"
+  when: dotfiles_repo
+

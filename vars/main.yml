@@ -1,0 +1,2 @@
+pyenv_root: "{{ ansible_env.HOME }}/.pyenv"
+pyenv_version: v2.3.22

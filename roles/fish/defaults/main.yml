@@ -1,0 +1,3 @@
+fish:
+  package_manager: fisher
+  fisher_path: ~/.config/fisher

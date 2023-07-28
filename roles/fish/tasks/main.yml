@@ -1,0 +1,79 @@
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - curl
+      - git
+      - fish
+      - fzf
+      - fd
+      - bat
+    state: present
+  become: true
+  when: 'ansible_os_family == "Archlinux"'
+
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - curl
+      - git
+      - fish
+      - fzf
+      - fd-find
+      - bat
+    state: present
+  become: true
+  when: 'ansible_os_family == "RedHat"'
+
+- name: Install Fisher
+  ansible.builtin.shell:
+    cmd: >
+      curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/59228d6215cb4c36aff77008751736f540dc42d8/functions/fisher.fish
+      | source
+      && set -x fisher_path ~/.config/fish
+      && fisher install jorgebucaran/fisher
+    executable: /usr/bin/fish
+
+- name: Setup fisher_path
+  block:
+    - name: Configure fisher_path
+      ansible.builtin.shell:
+        cmd: "set -U fisher_path {{ fish.fisher_path }}"
+        executable: /usr/bin/fish
+
+- name: Link conf.d path
+  ansible.builtin.include_role:
+    name : links
+  vars:
+    links:
+      - src: "{{ dotfiles_repo_dest }}/fish/conf.d"
+        dest: "~/.config/fish/conf.d"
+    force: true
+
+- name: Disable fish greeting
+  ansible.builtin.lineinfile:
+    path: '/home/{{ user }}/.config/fish/fish_variables'
+    line: 'SETUVAR fisher_path:/home/{{ user }}/.config/fisher'
+
+- name: Install fish plugins
+  ansible.builtin.shell:
+    cmd: fisher install PatrickF1/fzf.fish IlanCosman/tide@v5 edc/bass jorgebucaran/nvm.fish jorgebucaran/autopair.fish
+    executable: /usr/bin/fish
+
+- name: Configure tide
+  block:
+    - name: Remove default tide config
+      ansible.builtin.lineinfile:
+        path: '/home/{{ user }}/.config/fish/fish_variables'
+        regexp: '^SETUVAR _?tide[^:]+:'
+        state: absent
+    - name: Insert new tide config
+      ansible.builtin.blockinfile:
+        path: '/home/{{ user }}/.config/fish/fish_variables'
+        block: "{{ item }}"
+      with_file: tide_config
+
+- name: Disable fish greeting
+  ansible.builtin.lineinfile:
+    path: '/home/{{ user }}/.config/fish/fish_variables'
+    regexp: '^SETUVAR fish_greeting:.*'
+    line: 'SETUVAR fish_greeting:'

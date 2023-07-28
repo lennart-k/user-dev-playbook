@@ -1,0 +1,5 @@
+# If dotfiles_repo is undefined nothing will be cloned
+dotfiles_repo: https://github.com/lennart-k/dotfiles
+dotfiles_repo_version: main
+dotfiles_repo_dest: "~/.dotfiles"
+
