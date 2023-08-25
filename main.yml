@@ -1,5 +1,5 @@
 - name: Fish
-  hosts: all
+  hosts: localhost
   vars:
     user: lennart
   vars_files:
@@ -7,6 +7,7 @@
   roles:
     - { role: dotfiles, tags: dotfiles }
     - { role: fish, tags: fish }
+    - { role: i3, tags: i3 }
     - { role: pyenv, tags: pyenv }
     - { role: packages, tags: packages }
     - { role: links, tags: links }
