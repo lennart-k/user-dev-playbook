@@ -8,10 +8,12 @@
     - { role: dotfiles, tags: dotfiles }
     - { role: fish, tags: fish }
     - { role: i3, tags: i3 }
+    - { role: hypr, tags: hypr }
     - { role: pyenv, tags: pyenv }
     - { role: packages, tags: packages }
     - { role: links, tags: links }
     - { role: neovim, tags: neovim }
     - { role: matplotlib, tags: matplotlib }
     - { role: tmux, tags: tmux }
-
+    - { role: waybar, tags: waybar }
+    - { role: walker, tags: walker }

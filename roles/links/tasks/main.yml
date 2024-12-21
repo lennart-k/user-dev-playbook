@@ -11,7 +11,7 @@
   ansible.builtin.file:
     path: "{{ links[item.0].dest }}"
     state: absent
-  when: "'@' not in item.1.stdout"
+  when: "'@' not in item.1.stdout and force == True"
   with_indexed_items: "{{ existing_dotfile_info.results }}"
   when: force == True
 
